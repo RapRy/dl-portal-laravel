@@ -64,9 +64,9 @@ $("document").ready(function () {
     class CustomFile {
         getFileValue() {
             // set name of the file onchange event
-            $("#customFileIcon").on("change", (e) =>
-                $(e.target).next().text(e.target.files[0].name)
-            );
+            $("#customFileIcon").on("change", (e) => {
+                $(e.target).next().text(e.target.files[0].name);
+            });
         }
     }
 
@@ -410,26 +410,26 @@ $("document").ready(function () {
             });
         }
 
-        events() {
-            $("#addCategoryBtn").on("click", async () => {
-                const inputErrors = this.checkErrors();
-                const iconError = new Promise((resolve) =>
-                    this.checkImageDimension(resolve)
-                );
+        // events() {
+        //     $("#addCategoryBtn").on("click", async () => {
+        //         const inputErrors = this.checkErrors();
+        //         const iconError = new Promise((resolve) =>
+        //             this.checkImageDimension(resolve)
+        //         );
 
-                const result = await iconError;
+        //         const result = await iconError;
 
-                if (inputErrors.length > 0 || result.length > 0) {
-                    // if both arrays is not empty then dont submit form
-                    return;
-                } else {
-                    // submit form if there is no errors
-                    const dataForm = new FormData($("#categoryForm")[0]);
-                    // console.log(...dataForm);
-                    this.submitForm(dataForm);
-                }
-            });
-        }
+        //         if (inputErrors.length > 0 || result.length > 0) {
+        //             // if both arrays is not empty then dont submit form
+        //             return;
+        //         } else {
+        //             // submit form if there is no errors
+        //             const dataForm = new FormData($("#categoryForm")[0]);
+        //             // console.log(...dataForm);
+        //             this.submitForm(dataForm);
+        //         }
+        //     });
+        // }
     }
 
     const customSelectMenu = new CustomSelectMenu();
@@ -440,5 +440,5 @@ $("document").ready(function () {
 
     customSelectMenu.loadCustomSelectMenu();
     customSelectMenu.events();
-    validateForm.events();
+    // validateForm.events();
 });

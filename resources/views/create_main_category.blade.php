@@ -23,18 +23,22 @@
        </section>
        <section class="addMainCatWrapper">
             <h2>ADD MAIN CATEGORY</h2>
-            <form id="categoryForm">
+            <form method="POST" enctype="multipart/form-data" action={{route("create_new_category")}}>
+                @csrf
                 <div class="form-group">
                     <label for="categoryName" class="formLabel">Category Name</label>
-                    <input type="text" class="form-control formInputBlue" id="categoryName" name="mainCatName" value="{{ old("category_name") }}" />
+                    <input type="text" class="form-control formInputBlue" id="categoryName" name="category_name" value="{{ old("category_name") }}" />
                     @error('category_name')
                         <small class="formHint errorHint">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="custom-file">
                     <span class="formLabel customFormLabel">Category Icon</span>
-                    <input type="file" class="custom-file-input" id="cutomFileIcon" name="category_icon" />
-                    <label class="custom-file-label formInputBlue" for="cutomFileIcon" id="customFileLabel">Only png are allowed.(Dimension 25x25px)</label>
+                    <input type="file" class="custom-file-input" id="customFileIcon" name="category_icon" />
+                    <label class="custom-file-label formInputBlue" for="customFileIcon" id="customFileLabel">Only png are allowed.(Dimension 25x25px)</label>
+                    @error('category_icon')
+                        <small class="formHint errorHint" style="position: relative; top: 21px">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="selectFileExt" class="formLabel">Content File Extension Reference</label>
@@ -55,12 +59,21 @@
                     </div>
                 </div>
                 <div class="form-group text-center">
-                    <button type="submit" class="btnContentManageBlue globalBtn" id="addCategoryBtn">Add</button>
+                    <button type="submit" class="btnContentManageBlue globalBtn">Add</button>
                 </div>
             </form>
        </section>
-       <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+       <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> 
        <script type="text/javascript" src="{{URL::asset('js/addMainCat.js')}}" defer></script>
+       <script>
+            const message = "{{Session::get('message')}}";
+            const exists =  "{{Session::has('message')}}";
+            const errorMessage = "{{Session::get('error_message')}}";
+            const errorExists = "{{Session::has('error_message')}}";
+
+            if(exists) alert(message)
+            if(errorExists) alert(errorMessage)
+        </script>
     </main>
 </body>
 </html>
